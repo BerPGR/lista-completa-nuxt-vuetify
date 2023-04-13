@@ -1,13 +1,16 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer app color="#9652FF">
+    <v-navigation-drawer app color="#9652FF" v-model="drawer">
       <div class="text-center mt-10">
         <v-avatar size="100">
           <v-img :src="require('../assets/eu.png')"></v-img>
         </v-avatar>
-        <p>Bernardo</p>
+        <p class="white--text">Bernardo</p>
+        <v-btn class="mt-4 white--text" color="green lighten-2">
+          Add new project
+        </v-btn>
       </div>
-      <v-list>
+      <v-list class="mt-4">
         <v-list-item-group>
         <v-list-item
           v-for="(item, i) in items"
@@ -26,8 +29,9 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar color="transparent" app flat>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <h3>TODODEV</h3>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <h3 class="grey--text font-weight-regular">TODO</h3>
+      <h3 class="grey--text">DEV</h3>
       <v-spacer></v-spacer>
       <h2 class="grey--text">SIGN OUT</h2>
       <v-btn icon>
@@ -36,10 +40,8 @@
         </v-icon>
       </v-btn>  
     </v-app-bar>
-    <v-main style="padding: 64px 0px 0px 0px">
-      <v-content>
+    <v-main>
         <Nuxt />
-      </v-content>
     </v-main>
   </v-app>
 </template>
@@ -49,6 +51,7 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
+      drawer: true,
       items: [
         {
           title: 'Dashboard', icon: 'mdi-apps'
