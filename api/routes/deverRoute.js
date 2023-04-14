@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Tarefa = require('../models/dever')
+const Tarefa = require('../models/Dever')
 
 router.get('/', async (req, res) => {
     const deveres = await Tarefa.find({})
@@ -12,4 +12,20 @@ router.get('/', async (req, res) => {
     res.send(deveres);
 })
 
+router.post('/', async (req, res) => {
+
+    const { title, description, level, time } = req.body 
+
+    const newDutie = {
+        title, description, level, time
+    }
+
+    try {
+        await Tarefa.create(newDutie)
+        console.log('Nova tarefa criada')
+    }
+    catch(e) {
+        console.log('Nao foi possivel criar nova tarefa')
+    }
+})
 module.exports = router

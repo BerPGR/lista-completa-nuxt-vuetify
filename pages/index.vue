@@ -17,7 +17,7 @@
             </v-col>
             <v-card-text>
               <v-btn color="red" @click="dialog = !dialog">Fechar</v-btn>
-              <v-btn color="success">Save Dutie</v-btn>
+              <v-btn color="success" @click="saveDutie">Save Dutie</v-btn>
             </v-card-text>
           </v-card>
       </v-dialog>
@@ -75,7 +75,9 @@ export default {
   },
   methods: {
     async saveDutie() {
-      
+      this.dialog = !this.dialog
+      const newDutie = { title: this.title, description: this.desc, type: this.level1, time: new Date().getTime() }
+      await this.$axios.post('/dever', newDutie)
     }
   }
 }

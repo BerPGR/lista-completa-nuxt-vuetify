@@ -4,13 +4,14 @@ const mongoose = require('mongoose')
 const { loadNuxt, build } = require('nuxt')
 const isDev = process.env.NODE_ENV !== 'production'
 const deverRoute = require('./api/routes/deverRoute')
+const bodyParser = require('body-parser') 
 require('dotenv').config()
 
 const db_user = process.env.DB_USER
 const db_pass = process.env.DB_PASSWORD
 
 const app = express()
-
+app.use(bodyParser.json())
 app.use('/dever', deverRoute)
 
 app.use(urlencoded({
