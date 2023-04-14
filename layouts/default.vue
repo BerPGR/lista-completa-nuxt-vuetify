@@ -49,10 +49,7 @@
 <script>
 export default {
   name: 'DefaultLayout',
-  async fetch() {
-    const { data: duties } = this.$axios.get('/daver')
-    this.duties = duties
-  },
+
   data() {
     return {
       duties: [],
