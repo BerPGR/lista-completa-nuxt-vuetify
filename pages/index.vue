@@ -12,7 +12,7 @@
               <v-card-text>
                 <v-text-field outlined solo label="Title" v-model="title"></v-text-field>
                 <v-text-field outlined solo label="Description" v-model="desc"></v-text-field>
-                <v-select :items="level" v-model="level"></v-select>
+                <v-select :items="level" v-model="level1"></v-select>
               </v-card-text>
             </v-col>
             <v-card-text>
@@ -54,22 +54,37 @@
       </v-toolbar>
       <v-col cols="12" v-for="(item, i) in duties" :key="i">
         <v-card>
-          <v-row class="ma-0">
+          <v-row class="ma-0" align="center">
             <v-col cols="12" md="5">
               <v-list-item two-line>
                 <v-list-item-content>
                   <v-list-item-subtitle>{{ item.title }}</v-list-item-subtitle>
-                  <v-list-item-title>{{ item.description }}</v-list-item-title>
+                  <v-list-item-title><v-icon small>mdi-square-small</v-icon>{{ item.description }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-col>
-            <v-col cols="12" md="3">
+            <v-col cols="12" md="2">
               <v-list-item two-line>
                 <v-list-item-content>
                   <v-list-item-subtitle>Creation Date</v-list-item-subtitle>
                   <v-list-item-title>{{ getFormatedDate(item.time) }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
+            </v-col>
+            <v-col cols="12" md="2" v-if="item.type">
+              <v-chip :color="getChipColor(item.type)" class="font-weight-bold px-6 py-2">
+                {{ item.type }}
+              </v-chip>
+            </v-col>
+            <v-col cols="12" md="3">
+              <v-row class="ma-0">
+                <v-btn icon>
+                  <v-icon color="red">mdi-delete</v-icon>
+                </v-btn>
+                <v-btn icon class="ml-4">
+                  <v-icon color="orange">mdi-pencil</v-icon>
+                </v-btn>
+              </v-row>
             </v-col>
           </v-row>
         </v-card>
@@ -104,6 +119,17 @@ export default {
     getFormatedDate(date){
       const data = new Date(date)
       return data.toLocaleDateString()
+    },
+    getChipColor(type) {
+      if (type === 'Ongoing') {
+        return "orange"
+      }
+      else if (type === 'Overdue') {
+        return 'red'
+      }
+      else {
+        return 'green'
+      }
     }
   },
 }

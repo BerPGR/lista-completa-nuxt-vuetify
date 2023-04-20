@@ -14,10 +14,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-    const { title, description, level, time } = req.body 
+    const { title, description, type, time } = req.body 
 
     const newDutie = {
-        title, description, level, time
+        title, description, type, time
     }
 
     try {
