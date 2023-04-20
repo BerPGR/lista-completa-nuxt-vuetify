@@ -78,7 +78,7 @@
             </v-col>
             <v-col cols="12" md="3">
               <v-row class="ma-0">
-                <v-btn icon>
+                <v-btn icon @click="deleteDutie(item)">
                   <v-icon color="red">mdi-delete</v-icon>
                 </v-btn>
                 <v-btn icon class="ml-4">
@@ -116,10 +116,16 @@ export default {
       const newDutie = { title: this.title, description: this.desc, type: this.level1, time: new Date().getTime() }
       await this.$axios.post('/dever', newDutie)
     },
+
+    async deleteDutie(dutie) {
+      await this.$axios.delete(`/dever/${dutie._id}`, dutie)
+    },
+
     getFormatedDate(date){
       const data = new Date(date)
       return data.toLocaleDateString()
     },
+
     getChipColor(type) {
       if (type === 'Ongoing') {
         return "orange"

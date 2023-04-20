@@ -28,4 +28,15 @@ router.post('/', async (req, res) => {
         console.log('Nao foi possivel criar nova tarefa')
     }
 })
+
+router.delete('/:id', async(req, res) => {
+    const id = req.params.id
+
+    try {
+        await Tarefa.deleteOne({_id: id})
+    }
+    catch (e) {
+        console.log(e)
+    }
+})
 module.exports = router
