@@ -12,7 +12,7 @@
               <v-card-text>
                 <v-text-field outlined solo label="Title" v-model="title"></v-text-field>
                 <v-text-field outlined solo label="Description" v-model="desc"></v-text-field>
-                <v-select :items="level" v-model="level1"></v-select>
+                <v-select :items="level" v-model="level"></v-select>
               </v-card-text>
             </v-col>
             <v-card-text>
@@ -52,6 +52,28 @@
           </v-icon>
         </v-btn>
       </v-toolbar>
+      <v-col cols="12" v-for="(item, i) in duties" :key="i">
+        <v-card>
+          <v-row class="ma-0">
+            <v-col cols="12" md="5">
+              <v-list-item two-line>
+                <v-list-item-content>
+                  <v-list-item-subtitle>{{ item.title }}</v-list-item-subtitle>
+                  <v-list-item-title>{{ item.description }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-col>
+            <v-col cols="12" md="3">
+              <v-list-item two-line>
+                <v-list-item-content>
+                  <v-list-item-subtitle>Creation Date</v-list-item-subtitle>
+                  <v-list-item-title>{{ getFormatedDate(item.time) }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
     </v-col>
   </v-row>
 </template>
@@ -78,7 +100,11 @@ export default {
       this.dialog = !this.dialog
       const newDutie = { title: this.title, description: this.desc, type: this.level1, time: new Date().getTime() }
       await this.$axios.post('/dever', newDutie)
+    },
+    getFormatedDate(date){
+      const data = new Date(date)
+      return data.toLocaleDateString()
     }
-  }
+  },
 }
 </script>
