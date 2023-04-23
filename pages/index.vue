@@ -115,10 +115,16 @@ export default {
       this.dialog = !this.dialog
       const newDutie = { title: this.title, description: this.desc, type: this.level1, time: new Date().getTime() }
       await this.$axios.post('/dever', newDutie)
+      .then(() => {
+        location.reload()
+      })
+      window.location.reload()
     },
 
     async deleteDutie(dutie) {
-      await this.$axios.delete(`/dever/${dutie._id}`, dutie)
+      await this.$axios.delete(`/dever/${dutie._id}`, dutie).then(() => {
+        location.reload()
+      })
     },
 
     getFormatedDate(date){

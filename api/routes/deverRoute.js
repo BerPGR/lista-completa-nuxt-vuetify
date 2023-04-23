@@ -4,11 +4,6 @@ const Tarefa = require('../models/Dever')
 router.get('/', async (req, res) => {
     const deveres = await Tarefa.find({})
 
-    if (deveres.length == 0) {
-        res.send({message:'Não foi achado nenhum dever'})
-        return
-    }
-
     res.send(deveres);
 })
 
@@ -27,6 +22,7 @@ router.post('/', async (req, res) => {
     catch(e) {
         console.log('Nao foi possivel criar nova tarefa')
     }
+    res.send(newDutie)
 })
 
 router.delete('/:id', async(req, res) => {
@@ -38,5 +34,6 @@ router.delete('/:id', async(req, res) => {
     catch (e) {
         console.log(e)
     }
+    res.send()
 })
 module.exports = router
